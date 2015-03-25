@@ -8,7 +8,10 @@ module NightcrawlerSwift
 
     def execute dir_path
       @logger.info "[NightcrawlerSwift] dir_path: #{dir_path}"
-      Dir["#{dir_path}/**/**"].each do |fullpath|
+      files = Dir["#{dir_path}/**/**"]
+      files = files.reject { |files| files.match(escaped_folder) } unless options.skipped_folder.empty?
+
+      files.each do |fullpath|
         path = fullpath.gsub("#{dir_path}/", "")
 
         unless File.directory?(fullpath)
@@ -16,6 +19,13 @@ module NightcrawlerSwift
           @upload.execute path, File.open(fullpath, "r")
         end
       end
+    end
+
+    private
+
+    def escaped_folder
+      text = options.skipped_folder
+      %r{#{text}/|/#{text}}
     end
 
   end
