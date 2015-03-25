@@ -55,6 +55,9 @@ config.nightcrawler_swift.admin_url = "https://api.host.com/v1/AUTH_1234"
 # default: uses the public_url returned by authentication
 config.nightcrawler_swift.public_url = "http://asset.host.com/v1/AUTH_1234"
 
+# default: nil. Sepcify a folder to skip during syncronisation
+config.nightcrawler_swift.skipped_folder = "http://asset.host.com/v1/AUTH_1234"
+
 # default: 5, to disable set it to false
 config.nightcrawler_swift.retries = 3
 
