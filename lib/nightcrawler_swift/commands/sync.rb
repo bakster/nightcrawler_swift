@@ -11,14 +11,19 @@ module NightcrawlerSwift
       files = Dir["#{dir_path}/**/**"]
       files = files.reject { |files| files.match(escaped_folder) } unless options.skipped_folder.empty?
 
-      files.each do |fullpath|
-        path = fullpath.gsub("#{dir_path}/", "")
+      p = Pool.new(50)
 
-        unless File.directory?(fullpath)
-          @logger.info "[NightcrawlerSwift] #{path}"
-          @upload.execute path, File.open(fullpath, "r")
+      files.each do |fullpath|
+        p.schedule do
+          path = fullpath.gsub("#{dir_path}/", "")
+          unless File.directory?(fullpath)
+            @logger.info "[NightcrawlerSwift] #{path}"
+            @upload.execute path, File.open(fullpath, "r")
+          end
         end
       end
+
+      at_exit { p.shutdown }
     end
 
     private
@@ -29,4 +34,5 @@ module NightcrawlerSwift
     end
 
   end
+
 end

@@ -20,6 +20,7 @@ require "nightcrawler_swift/commands/list"
 require "nightcrawler_swift/commands/delete"
 require "nightcrawler_swift/commands/sync"
 require "nightcrawler_swift/railtie" if defined?(Rails)
+require 'nightcrawler_swift/pool'
 
 module NightcrawlerSwift
   class << self
