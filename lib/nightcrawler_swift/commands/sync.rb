@@ -11,7 +11,7 @@ module NightcrawlerSwift
       files = Dir["#{dir_path}/**/**"]
       files = files.reject { |files| files.match(escaped_folder) } unless options.skipped_folder.empty?
 
-      p = Pool.new(50)
+      p = Pool.new(20)
 
       files.each do |fullpath|
         p.schedule do
