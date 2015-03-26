@@ -29,6 +29,6 @@ Gem::Specification.new do |spec|
   if RUBY_VERSION =~ /1\.9/
     spec.add_development_dependency "debugger"
   else
-    spec.add_development_dependency "byebug"
+    spec.add_development_dependency "pry"
   end
 end
